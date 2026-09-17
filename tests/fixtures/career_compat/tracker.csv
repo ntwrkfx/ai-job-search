@@ -1,0 +1,5 @@
+date,company,sector,role,role_type,channel,status,contact_person,fit_rating,notes,cv_file,cover_letter_file,source,deadline
+2026-09-01,Alpha Labs,Technology,Platform Engineer,technical,portal,ranked,,Strong Fit,shortlisted,,,https://jobs.example/alpha,2026-10-01
+2026-09-02,Beta Works,Technology,Data Engineer,technical,referral,applied,Robin Recruiter,Good Fit,submitted,cv/beta.pdf,cover_letters/beta.pdf,https://jobs.example/beta,2026-10-02
+2026-09-03,Gamma Group,Technology,Staff Engineer,technical,direct,interview,Pat Manager,Strong Fit,stage one,cv/gamma.pdf,cover_letters/gamma.pdf,https://jobs.example/gamma,2026-10-03
+2026-09-04,Delta Systems,Technology,ML Engineer,technical,portal,rejected,Taylor Recruiter,Moderate Fit,closed,cv/delta.pdf,cover_letters/delta.pdf,https://jobs.example/delta,2026-10-04
