@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.career_compat.projection import TARGET_REVISION, compile_projection
+from tools.career_compat.projection import ProjectionInputError, TARGET_REVISION, compile_projection
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +63,25 @@ class ProjectionTests(unittest.TestCase):
             compile_projection(source, b)
             for relative in manifest["files"]:
                 self.assertEqual((a / relative).read_bytes(), (b / relative).read_bytes())
+
+
+    def test_unknown_schema_writes_nothing(self):
+        source = json.loads(FIXTURE.read_text(encoding="utf-8"))
+        source["schema"] = "CareerCandidateProjectionInput/future"
+        with tempfile.TemporaryDirectory() as tmp:
+            output_root = Path(tmp) / "projection"
+            with self.assertRaises(ProjectionInputError):
+                compile_projection(source, output_root)
+            self.assertFalse(output_root.exists())
+
+    def test_missing_candidate_name_writes_nothing(self):
+        source = json.loads(FIXTURE.read_text(encoding="utf-8"))
+        del source["candidate"]["identity"]["name"]
+        with tempfile.TemporaryDirectory() as tmp:
+            output_root = Path(tmp) / "projection"
+            with self.assertRaises(ProjectionInputError):
+                compile_projection(source, output_root)
+            self.assertFalse(output_root.exists())
 
 
 if __name__ == "__main__":

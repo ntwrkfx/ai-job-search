@@ -10,6 +10,36 @@ TARGET_REVISION = "09435eb1a572eddbd0180e8ea9c3acf84f90604a"
 SOURCE_SCHEMA = "CareerCandidateProjectionInput/v0"
 MANIFEST_SCHEMA = "AiJobSearchProjectionManifest/v0"
 
+
+class ProjectionInputError(ValueError):
+    """Canonical projection input is malformed or unsupported."""
+
+
+def _validate_source(source: object) -> dict[str, Any]:
+    if not isinstance(source, dict):
+        raise ProjectionInputError("source must be an object")
+    if source.get("schema") != SOURCE_SCHEMA:
+        raise ProjectionInputError(f"unsupported source schema: {source.get('schema')!r}")
+    candidate = source.get("candidate")
+    if not isinstance(candidate, dict):
+        raise ProjectionInputError("candidate must be an object")
+    identity = candidate.get("identity")
+    if not isinstance(identity, dict):
+        raise ProjectionInputError("candidate.identity must be an object")
+    name = identity.get("name")
+    if not isinstance(name, str) or not name.strip():
+        raise ProjectionInputError("candidate.identity.name must be a non-empty string")
+    for key in ("languages", "education", "experiences", "projects", "publications", "recognitions", "references"):
+        if key in candidate and not isinstance(candidate[key], list):
+            raise ProjectionInputError(f"candidate.{key} must be a list")
+    if "skills" in candidate and not isinstance(candidate["skills"], dict):
+        raise ProjectionInputError("candidate.skills must be an object")
+    for key, expected in (("behavioral_assessments", list), ("writing_preferences", dict), ("stories", list)):
+        if key in source and not isinstance(source[key], expected):
+            raise ProjectionInputError(f"{key} must be a {expected.__name__}")
+    return source
+
+
 PROFILE_BASE = ".claude/skills/job-application-assistant"
 PROFILE_PATHS = {
     "candidate": f"{PROFILE_BASE}/01-candidate-profile.md",
@@ -180,8 +210,7 @@ def _render_interview_prep(source: dict[str, Any]) -> str:
 
 
 def compile_projection(source: dict[str, Any], output_root: Path) -> dict[str, Any]:
-    if source.get("schema") != SOURCE_SCHEMA:
-        raise ValueError(f"unsupported source schema: {source.get('schema')!r}")
+    source = _validate_source(source)
 
     rendered = {
         PROFILE_PATHS["candidate"]: _render_candidate_profile(source),
