@@ -1,0 +1,59 @@
+{
+  "schema": "CareerCandidateProjectionInput/v0",
+  "candidate": {
+    "identity": {
+      "name": "Casey Example",
+      "location": "Example City",
+      "phone": "+1-555-0100",
+      "email": "casey@example.test",
+      "linkedin": "https://example.test/casey",
+      "github": "https://github.com/example/casey",
+      "status": "Exploring roles",
+      "constraints": "Remote or hybrid"
+    },
+    "languages": [
+      {"language": "English", "level": "Native", "notes": "Professional"}
+    ],
+    "education": [
+      {"degree": "BSc Example Engineering", "period": "2014-2018", "institution": "Example University", "topics": ["Systems", "Statistics"], "evidence_ids": ["edu-1"]}
+    ],
+    "experiences": [
+      {"title": "Staff Example Engineer", "company": "Example Systems", "period": "2021-2026", "location": "Remote", "achievements": ["Led a reliability program", "Reduced recovery time by 40%"], "evidence_ids": ["exp-1"]}
+    ],
+    "projects": [
+      {"name": "Project Atlas", "description": "Built a deterministic workflow verifier.", "evidence_ids": ["project-1"]}
+    ],    "skills": {
+      "programming_and_ml": ["Python", "SQL"],
+      "domain_expertise": ["Reliability engineering"],
+      "software_and_tools": ["Git", "Linux"]
+    },
+    "publications": [
+      {"authors": "Casey Example", "year": "2024", "title": "Deterministic Systems", "venue": "Example Journal", "url": "https://example.test/paper", "evidence_ids": ["pub-1"]}
+    ],
+    "recognitions": [
+      {"title": "Example Award", "organization": "Example Foundation", "year": "2025", "evidence_ids": ["award-1"]}
+    ],
+    "references": [
+      {"name": "Jordan Reference", "title": "Director", "company": "Example Systems", "email": "jordan@example.test", "phone": "+1-555-0101"}
+    ]
+  },
+  "behavioral_assessments": [
+    {"type": "DISC", "profile": "Example profile", "summary": "Prefers direct communication and autonomy.", "source": "user-provided assessment", "observed_at": "2026-09-01", "drives": [{"name": "Autonomy", "level": "High", "meaning": "Works well with ownership"}], "strengths": ["Structured problem solving"], "work_preferences": ["Clear outcomes"], "growth_areas": ["Delegate earlier"]}
+  ],
+  "writing_preferences": {
+    "tone": ["Direct", "Concrete"],
+    "avoid": ["Generic buzzwords"],
+    "rules": ["Prefer evidence-backed claims"]
+  },  "stories": [
+    {
+      "title": "Reliability recovery",
+      "skill": "Incident leadership",
+      "situation": "A production service had recurring failures.",
+      "task": "Stabilize recovery without slowing releases.",
+      "action": "Introduced deterministic runbooks and failure drills.",
+      "result": "Reduced recovery time by 40%.",
+      "use_for": ["Leadership", "Operational excellence"],
+      "evidence_ids": ["story-1", "exp-1"]
+    }
+  ]
+}
